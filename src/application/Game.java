@@ -66,6 +66,8 @@ public class Game
      */
     public String processCommand(Command command) 
     {
+        
+        //outter if statement to check if currentRoom has no monster else can only do fight commands
         if(command.isUnknown()) {
             //System.out.println("I don't know what you mean...");
             return "I don't know what you mean... \n";
