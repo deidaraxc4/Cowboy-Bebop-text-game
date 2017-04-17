@@ -1,0 +1,19 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#background {
+	-fx-background-image: url("/application/images/wanted.jpg");
+	-fx-background-repeat: no-repeat;
+}
+
+#sound {
+	-fx-background-image:url("/application/images/sound.png");
+	-fx-background-color: #89551A;
+	-fx-background-size: 30px;
+	-fx-background-repeat: no-repeat;
+}
+
+#sound:pressed {
+	-fx-background-image:url("/application/images/sound.png");
+	-fx-background-color: #2f4f4f;
+	-fx-background-size: 30px;
+	-fx-background-repeat: no-repeat;
+}

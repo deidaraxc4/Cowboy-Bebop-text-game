@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="background" fx:id="anchor" minHeight="500.0" minWidth="400.0" styleClass="anchor" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Scene1Controller">
+   <children>
+      <Button id="play" fx:id="playBtn" layoutX="164.0" layoutY="189.0" mnemonicParsing="false" onAction="#playEvent" prefHeight="27.0" prefWidth="72.0" text="Play" />
+      <Label fx:id="titleLabel" alignment="CENTER" layoutX="14.0" layoutY="65.0" prefHeight="83.0" prefWidth="372.0" text="Cowboy Bebop" textAlignment="CENTER">
+         <font>
+            <Font name="Copperplate Bold" size="45.0" />
+         </font>
+      </Label>
+      <Button id="about" fx:id="aboutBtn" layoutX="164.0" layoutY="234.0" mnemonicParsing="false" onAction="#aboutEvent" prefHeight="27.0" prefWidth="72.0" text="About" />
+      <Button id="creator" fx:id="creatorBtn" layoutX="164.0" layoutY="279.0" mnemonicParsing="false" onAction="#creatorEvent" text="Creators" />
+      <Button id="sound" fx:id="soundBtn" layoutX="345.0" layoutY="448.0" mnemonicParsing="false" onAction="#soundEvent" prefHeight="30.0" prefWidth="30.0" />
+   </children>
+</AnchorPane>
