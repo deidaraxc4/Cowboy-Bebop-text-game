@@ -54,7 +54,13 @@ public class Game
     }
     
     public String getRoomDesc() {
-    	return currentRoom.getLongDescription();
+    	if(currentRoom.getShortDescription().equals("outside the main entrance of Waverly Hills")){
+    		return "You are outside the main entrance of your hometown, Waverly Hills. \n"
+    				+ "Exits: north";
+    	}
+    	else{
+    		return currentRoom.getLongDescription();
+    	}
     }
 
     /**
