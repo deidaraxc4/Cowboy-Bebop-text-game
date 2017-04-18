@@ -16,7 +16,7 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, Monster monster, Weapon weapon)//add monster and weapon
+    public Room(String description, Weapon weapon, Monster monster)//add monster and weapon
     {
         this.description = description;
         exits = new HashMap<String, Room>();

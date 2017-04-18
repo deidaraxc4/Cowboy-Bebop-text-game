@@ -9,5 +9,9 @@ public class Monster extends Entity {
 		this.minHit = minHit;
 		this.maxHit = maxHit;
 	}
+	
+	public int attack() {
+		return Damage.rollDamage(minHit,maxHit);
+	}
 
 }

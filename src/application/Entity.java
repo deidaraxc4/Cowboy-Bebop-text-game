@@ -21,7 +21,7 @@ public class Entity {
 		health = health - dmg;
 	}
 	
-	public boolean checkHealth() {
+	public boolean checkDeath() {
 		if(health<=0) {
 			return true;
 		} else {

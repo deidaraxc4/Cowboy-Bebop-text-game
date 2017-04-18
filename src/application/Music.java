@@ -1,7 +1,5 @@
 package application;
 
-import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
 
 import javafx.scene.media.*;

@@ -69,6 +69,9 @@ public class Scene2Controller implements Initializable {
 			if(results.equals("Goodbye!")) {
 				Platform.exit();
 			}
+			if(results.equals("You have died!\n")) {
+				cmdArea.setDisable(true);
+			}
 			//console.appendText(text+"\n"); tester, real one would send command
 			cmdArea.setText("");
 		}
