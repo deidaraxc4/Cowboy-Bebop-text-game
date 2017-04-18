@@ -36,16 +36,11 @@ public class Game
         outside.setExit("east", theater);
         outside.setExit("south", lab);
         outside.setExit("west", pub);
-
         theater.setExit("west", outside);
-
         pub.setExit("east", outside);
-
         lab.setExit("north", outside);
         lab.setExit("east", office);
-
         office.setExit("west", lab);
-
         currentRoom = outside;*/  // start game outside
     }
 
@@ -137,16 +132,56 @@ public class Game
             return "There is no door! \n";
         }
         else {
-            currentRoom = nextRoom;
-            if(currentRoom.getShortDescription().equals("behind the general store")) {
-            	//player dies
-            }
-            if(currentRoom.hasMonster()) {
-            	return "There is a "+currentRoom.getMonster().getName()+" and they want to duel! \n";
-            } else {
-            	return currentRoom.getLongDescription()+"\n";
-            }
-        }
+	        	if(currentRoom.getShortDescription().equals("in the town square")) {
+	        	player.drink3 = true;
+	        	currentRoom = nextRoom;
+	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
+	        			+ "then leave." + currentRoom.getLongDescription()+"\n";
+	        	}
+	        	else{
+		        		currentRoom = nextRoom;
+			            if(currentRoom.getShortDescription().equals("behind the general store")) {
+			            	return "You have been attacked by a bear and have died. \n ";
+			            			
+			            	//player dies
+			            	//end game
+			            }
+			            if(currentRoom.getShortDescription().equals("in the general store")){
+			            	player.rope = true;
+			            	return "You are in the general store. After you mention your mission to Bill, \n"
+			            			+ "the store clerk, he offers you a rope. You take it.";
+			            }
+			            if(currentRoom.getShortDescription().equals("in the saloon")){
+			            	player.drink1 = true;
+			            	return "You swing open the doors of the saloon and enter in style. \n"
+			            			+ "The bartender, your old friend John, offers you a free drink \n"
+			            			+ "of whiskey, and you accept.";
+			            }
+			            if(currentRoom.getShortDescription().equals("in the bath house")){
+			            	player.drink2 = true;
+			            	return "You are in the bath house. Paul, the owner, mentions that you smell fine \n"
+			            			+ "by wild west standards and that you don't need a bath. \"What you need,\" \n"
+			            			+ "he says, \"is a drink!\" He then offers you a drink of whiskey, and you accept.";
+			            }
+			            if(currentRoom.getShortDescription().equals("in the cafe with some delicious ole coffee to sober you up!")){
+			            	player.coffee = true;
+			            	return "You are in the cafe. You notice a coffee pot with the logo \"Jittery Jim's\" on it. Coffee \n"
+			            			+ "is just what you need to sober up for the fight, so you drink a cup.";
+			            }
+			            }
+			            if(currentRoom.hasMonster()) {
+		            		return "There is a "+currentRoom.getMonster().getName()+" and they want to duel! \n";
+		            	} 
+		            	else {
+		            	return currentRoom.getLongDescription()+"\n";
+		            	}
+		            }
+            	
+             }
+            
+        
+            	
+        
     }
     
 }
