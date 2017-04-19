@@ -296,8 +296,8 @@ public class Game
         	if(currentRoom.getShortDescription().equals("in the town square")) {
 	        	player.drink3 = true;
 	        	currentRoom = nextRoom;
-	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
-	        			+ "then leave." + currentRoom.getLongDescription()+"\n";
+	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, then leave. \n" 
+	        			+ currentRoom.getLongDescription()+"\n";
 	        	}
 	        	else{
 		        		currentRoom = nextRoom;
@@ -309,25 +309,19 @@ public class Game
 			            }
 			            if(currentRoom.getShortDescription().equals("in the general store")){
 			            	player.rope = true;
-			            	return "You are in the general store. After you mention your mission to Bill, \n"
-			            			+ "the store clerk, he offers you a rope. You take it.";
+			            	return "You are in the general store. After you mention your mission to Bill, the store clerk, he offers you a rope. You take it. \n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the saloon")){
 			            	player.drink1 = true;
-			            	return "You swing open the doors of the saloon and enter in style. \n"
-			            			+ "The bartender, your old friend John, offers you a free drink \n"
-			            			+ "of whiskey, and you accept.";
+			            	return "You swing open the doors of the saloon and enter in style. The bartender, your old friend John, offers you a free drink of whiskey, and you accept. \n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the bath house")){
 			            	player.drink2 = true;
-			            	return "You are in the bath house. Paul, the owner, mentions that you smell fine \n"
-			            			+ "by wild west standards and that you don't need a bath. \"What you need,\" \n"
-			            			+ "he says, \"is a drink!\" He then offers you a drink of whiskey, and you accept.";
+			            	return "You are in the bath house. Paul, the owner, mentions that you smell fine by wild west standards and that you don't need a bath. \"What you need,\" he says, \"is a drink!\" He then offers you a drink of whiskey, and you accept. \n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the cafe with some delicious ole coffee to sober you up!")){
 			            	player.coffee = true;
-			            	return "You are in the cafe. You notice a coffee pot with the logo \"Jittery Jim's\" on it. Coffee \n"
-			            			+ "is just what you need to sober up for the fight, so you drink a cup.";
+			            	return "You are in the cafe. You notice a coffee pot with the logo \"Jittery Jim's\" on it. Coffee is just what you need to sober up for the fight, so you drink a cup. \n";
 			            }
 			            }
 			            if(currentRoom.hasMonster()) {
