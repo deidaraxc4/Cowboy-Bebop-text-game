@@ -35,4 +35,8 @@ public class Weapon
     	return maxDamage;
     }
     
+    public String getDesc() {
+    	return description;
+    }
+    
 }

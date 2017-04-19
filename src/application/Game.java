@@ -211,7 +211,7 @@ public class Game
 
         String commandWord = command.getCommandWord();
         
-        if(currentRoom.hasMonster() == true && !currentRoom.getMonster().checkDeath()) {
+        if(currentRoom.hasMonster() == true && currentRoom.getMonster().checkDeath() == false) {
     		//cannot leave
         	if(commandWord.equals("fire") && player.hasWeapon()) {
     			//do damage and take damage then check monster health
@@ -229,9 +229,11 @@ public class Game
     			}
     			
     		} else if(commandWord.equals("fire") && !player.hasWeapon()) {
-    			return "You do not have a weapon to fire! \n";
+    			y = currentRoom.getMonster().attack();
+    			player.takeDmg(y);
+    			return "You do not have a weapon to fire! \n"+"You take "+y+" amount of dmg!\n";
     		} else if(commandWord.equals("help")) {
-    			return "Your command words are: 'go','quit','help','look,'pickup','health' \n";
+    			return "Your command words are: 'quit','help','fire','health' \n";
     		} else if(commandWord.equals("health")) {
     			return "Your current health is: "+player.getHealth()+"\n";
     		} else if(commandWord.equals("quit")) {
@@ -242,23 +244,37 @@ public class Game
         	
     	} else {
     		if (commandWord.equals("help")) {
-            	return "Your command words are: 'go','quit','help','look',pickup','health' \n";
+            	return "Your command words are: 'go','quit','fire','help','inventory','look',pickup','health' \n";
             }
             else if (commandWord.equals("go")) {
                 return goRoom(command);
             }
             else if (commandWord.equals("look")) {
-            	return currentRoom.getLongDescription()+"\n";
+            	if(currentRoom.getShortDescription().equals("outside the main entrance of Waverly Hills")) {
+            		return "Upon closer inspection you notice an exit to the south \n";
+            	} else if(currentRoom.getWeapon()!=null) {
+            		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor\n";
+            	} else {
+            		return currentRoom.getLongDescription()+"\n";
+            	}
+            }
+            else if(commandWord.equals("inventory")) {
+            	if(player.getWeapon()==null) {
+            		return "You are wielding your bare hands \n";
+            	} else {
+            		return "you are wielding a "+player.getWepName()+"\n";
+            	}
             }
             else if(commandWord.equals("health")) {
     			return "Your current health is: "+player.getHealth()+"\n";
     		} 
             else if(commandWord.equals("fire")) {
-    			return "Your current health is: "+player.getHealth()+"\n";
+    			return "You probably shouldn't randomly fire shots in public... \n";
     		} 
             else if (commandWord.equals("pickup")) {
             	if(currentRoom.hasWeapon() == true) {
             		player.assignWeapon(currentRoom.getWeapon());
+            		return "You pickup a "+currentRoom.getWeapon().getDesc()+"\n";
             	} else if(currentRoom.hasWeapon() == false) {
             		return "There's nothing to pickup! \n";
             	}
@@ -296,8 +312,8 @@ public class Game
         	if(currentRoom.getShortDescription().equals("in the town square")) {
 	        	player.drink3 = true;
 	        	currentRoom = nextRoom;
-	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, then leave. \n" 
-	        			+ currentRoom.getLongDescription()+"\n";
+	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
+	        			+ "then leave." + currentRoom.getLongDescription()+"\n";
 	        	}
 	        	else{
 		        		currentRoom = nextRoom;
@@ -309,19 +325,25 @@ public class Game
 			            }
 			            if(currentRoom.getShortDescription().equals("in the general store")){
 			            	player.rope = true;
-			            	return "You are in the general store. After you mention your mission to Bill, the store clerk, he offers you a rope. You take it. \n";
+			            	return "You are in the general store. After you mention your mission to Bill,"
+			            			+ "the store clerk, he offers you a rope. You take it.";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the saloon")){
 			            	player.drink1 = true;
-			            	return "You swing open the doors of the saloon and enter in style. The bartender, your old friend John, offers you a free drink of whiskey, and you accept. \n";
+			            	return "You swing open the doors of the saloon and enter in style."
+			            			+ "The bartender, your old friend John, offers you a free drink"
+			            			+ "of whiskey, and you accept.\n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the bath house")){
 			            	player.drink2 = true;
-			            	return "You are in the bath house. Paul, the owner, mentions that you smell fine by wild west standards and that you don't need a bath. \"What you need,\" he says, \"is a drink!\" He then offers you a drink of whiskey, and you accept. \n";
+			            	return "You are in the bath house. Paul, the owner, mentions that you smell fine"
+			            			+ "by wild west standards and that you don't need a bath. \"What you need,\" "
+			            			+ "he says, \"is a drink!\" He then offers you a drink of whiskey, and you accept. \n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the cafe with some delicious ole coffee to sober you up!")){
 			            	player.coffee = true;
-			            	return "You are in the cafe. You notice a coffee pot with the logo \"Jittery Jim's\" on it. Coffee is just what you need to sober up for the fight, so you drink a cup. \n";
+			            	return "You are in the cafe. You notice a coffee pot with the logo \"Jittery Jim's\" on it. Coffee"
+			            			+ "is just what you need to sober up for the fight, so you drink a cup. \n";
 			            }
 			            }
 			            if(currentRoom.hasMonster()) {

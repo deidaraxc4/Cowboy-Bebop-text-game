@@ -68,11 +68,12 @@ public class Scene1Controller implements Initializable{
 	@FXML
 	public void aboutEvent(ActionEvent event) {
 		//Main.getInstance().getDialog().show();
+		Main.getInstance().getAlert().show();
 	}
 	
 	@FXML
 	public void creatorEvent(ActionEvent event) {
-		
+		Main.getInstance().getAlertTwo().show();
 	}
 	@FXML
 	public void soundEvent(ActionEvent event) {

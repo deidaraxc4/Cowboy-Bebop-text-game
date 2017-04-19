@@ -27,6 +27,10 @@ public class Player extends Entity{
 		this.weapon = weapon;
 	}
 	
+	public String getWepName() {
+		return weapon.getDesc();
+	}
+	
 	public Weapon getWeapon() {
 		return weapon;
 	}
