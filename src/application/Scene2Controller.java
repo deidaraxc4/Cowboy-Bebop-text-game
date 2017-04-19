@@ -77,7 +77,9 @@ public class Scene2Controller implements Initializable {
 			if(results.equals("You have died!\n")) {
 				cmdArea.setDisable(true);
 			}
-			//console.appendText(text+"\n"); tester, real one would send command
+			if(results.equals("You have been attacked by a bear and have died. \n ")) {
+				cmdArea.setDisable(true);
+			}
 			cmdArea.setText("");
 		}
 	}

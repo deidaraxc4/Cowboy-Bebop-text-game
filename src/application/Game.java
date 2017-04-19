@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Game 
 {
-    private Parser parser;
-    private ParserWithFileInput parserWithFileInput;
     private Room currentRoom;
     public static boolean finished = false;
     private Player player;
@@ -17,9 +15,7 @@ public class Game
      * Create the game and initialise its internal map.
      */
     public Game() 
-    {
-        //createRooms();
-        player = new Player("Dirty Dan",10);
+    {   player = new Player("Dirty Dan",10);
         weapons = new ArrayList<Weapon>();
         monsters = new ArrayList<Monster>();
         createAllWeapons();
@@ -157,8 +153,8 @@ public class Game
 
     public void createAllWeapons()
     {
-        Weapon sixInchRevolver = new Weapon("6-inch Revolver",0,6);
-        Weapon twelveInchRevolver = new Weapon("12-inch Revolver",0,8);
+        Weapon sixInchRevolver = new Weapon("6-inch Revolver",0,3);
+        Weapon twelveInchRevolver = new Weapon("12-inch Revolver",1,6);
         Weapon DualWield = new Weapon("Dual Wield 12-inch Revolver",6,12);
         Weapon Helicopter = new Weapon("Apache Attack Helicopter (How did this thing get to the wild west?)",1000,1000);
         weapons.add(sixInchRevolver);
@@ -187,8 +183,11 @@ public class Game
      */
     public String printWelcome()
     {
-        return "Welcome to unknown town! \n"
-        		+ "Type 'help' if you need help. \n";
+        return "Welcome to Cowboy Bebop text adventure game. "
+				+ "You are an ex-sheriff who has come out of retirement due to new trouble brewing up in town."
+				+ " You must find your way through this puzzle game and collect various items and perform certain"
+				+ " tasks before taking on the Mafia gang who has taken over.\n"
+				+" \n";
     }
     
     public String getRoomDesc() {
@@ -209,7 +208,6 @@ public class Game
     public String processCommand(Command command) 
     {
         if(command.isUnknown()) {
-            //System.out.println("I don't know what you mean...");
             return "I don't know what you mean... \n";
         }
 
@@ -227,7 +225,8 @@ public class Game
     				//end game
     				return "You have died!\n";
     			} else if(currentRoom.getMonster().checkDeath()) {
-    				return "You have killed the bad guy!\n";
+    				return "You dealt "+x+" damage and got hit for "+y+"\n"
+    						+"You have killed the bad guy!\n";
     			} else {
     				return "You dealt "+x+" damage and got hit for "+y+"\n";
     			}
@@ -248,7 +247,8 @@ public class Game
         	
     	} else {
     		if (commandWord.equals("help")) {
-            	return "Your command words are: 'go','quit','fire','help','inventory','look',pickup','health' \n";
+            	return "Your command words are: 'go','quit','fire','help',\n"
+            			+ "'inventory','look',pickup','health' \n";
             }
             else if (commandWord.equals("go")) {
                 return goRoom(command);
@@ -350,7 +350,7 @@ public class Game
 			            if(currentRoom.getShortDescription().equals("in the general store")){
 			            	player.rope = true;
 			            	return "You are in the general store. After you mention your mission to Bill,"
-			            			+ " the store clerk, he offers you a rope. You take it. ";
+			            			+ " the store clerk, he offers you a rope. You take it. \n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the saloon")){
 			            	player.drink1 = true;

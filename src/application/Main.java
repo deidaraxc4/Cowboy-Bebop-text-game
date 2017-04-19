@@ -36,7 +36,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Cowboy Bepbop");
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Scene1.fxml"));
 			Scene scene = new Scene(root);
-			music = new Music(getClass().getResource("/application/sounds/maintheme2.mp3"));
+			music = new Music(getClass().getResource("/application/sounds/maintheme3.mp3"));
 			music.play();
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
