@@ -57,8 +57,8 @@ public class Game
         
         outsideHideOut = new Room("outside Mad Dog Tannen's Hideout after a long ride",null,null);
         emptyRoom = new Room("in an empty room",null,null);
-        darkChamber = new Room("in the dark chamber with a Goon!",null, monsters.get(0));
-        blackChamber = new Room("in the black chamber with a Goon!",null, monsters.get(0));
+        darkChamber = new Room("in the dark chamber with a Goon!",null, monsters.get(3));
+        blackChamber = new Room("in the black chamber with a Goon!",null, monsters.get(4));
         bada$$Room = new Room("in the bada$$ room and there are Dual-Wield 12-inch Revolvers",weapons.get(2),null);
         breakRoom = new Room("in the break room",null, null);
         jitteryJims = new Room("in the café with some delicious ole coffee to sober you up!", null, null);
@@ -170,11 +170,15 @@ public class Game
     public void createAllMonsters()
     {
         Monster lowGoon = new Monster("Goon",3,0,2);
+        Monster lowGoon2 = new Monster("Goon",3,0,2);
+        Monster lowGoon3 = new Monster("Goon",3,0,2);
         Monster highGoon = new Monster("Middle Management Goon",8,1,3);
         Monster topGoon = new Monster("Mad Dog Tannen",20,1,5);
         monsters.add(lowGoon);
         monsters.add(highGoon);
         monsters.add(topGoon);
+        monsters.add(lowGoon2);
+        monsters.add(lowGoon3);
         //name,health, minhit, maxhit 
     }
 
@@ -313,9 +317,29 @@ public class Game
 	        	player.drink3 = true;
 	        	currentRoom = nextRoom;
 	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
-	        			+ "then leave." + currentRoom.getLongDescription()+"\n";
+	        			+ "then leave. " + currentRoom.getLongDescription()+"\n";
 	        	}
-	        	else{
+        	if(currentRoom.getShortDescription().equals("in the stable")){
+	        	if(command.getSecondWord().equals("north"))	
+	        	{
+        			if(player.rope == false || player.drink1 == false || player.drink2 == false || player.drink3 == false)
+	        		{
+	        			return "You aren't yet ready to ride to Mad Dog Tannen's hideout. Make sure you have a rope,"
+	        					+ " and that you have taken three drinks (but no more, as per the rules). \n"
+	        					+ currentRoom.getLongDescription()+"\n";
+	        		}
+	        	}
+        	}
+        	if(currentRoom.getShortDescription().equals("in a room with the Top Goon!")){
+        		if(player.coffee == false)
+        		{
+        			return "While you needed some liquid courage to ride to the hideout, you know you'll"
+        					+ " need to sober up before facing Mad Dog Tannen. Find some coffee. \n"
+        					+ currentRoom.getLongDescription()+"\n";
+        		}
+        		
+        	}
+	        else{
 		        		currentRoom = nextRoom;
 			            if(currentRoom.getShortDescription().equals("behind the general store")) {
 			            	return "You have been attacked by a bear and have died. \n ";
@@ -326,13 +350,13 @@ public class Game
 			            if(currentRoom.getShortDescription().equals("in the general store")){
 			            	player.rope = true;
 			            	return "You are in the general store. After you mention your mission to Bill,"
-			            			+ "the store clerk, he offers you a rope. You take it.";
+			            			+ " the store clerk, he offers you a rope. You take it. ";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the saloon")){
 			            	player.drink1 = true;
 			            	return "You swing open the doors of the saloon and enter in style."
-			            			+ "The bartender, your old friend John, offers you a free drink"
-			            			+ "of whiskey, and you accept.\n";
+			            			+ " The bartender, your old friend John, offers you a free drink"
+			            			+ " of whiskey, and you accept.\n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the bath house")){
 			            	player.drink2 = true;
@@ -343,11 +367,19 @@ public class Game
 			            if(currentRoom.getShortDescription().equals("in the cafe with some delicious ole coffee to sober you up!")){
 			            	player.coffee = true;
 			            	return "You are in the cafe. You notice a coffee pot with the logo \"Jittery Jim's\" on it. Coffee"
-			            			+ "is just what you need to sober up for the fight, so you drink a cup. \n";
+			            			+ " is just what you need to sober up for the fight, so you drink a cup. \n";
 			            }
 			            }
-			            if(currentRoom.hasMonster()) {
-		            		return "There is a "+currentRoom.getMonster().getName()+" and they want to duel! \n";
+			            if(currentRoom.hasMonster() && currentRoom.getMonster().checkDeath() == false) {
+		            		if(currentRoom.getMonster().getName() == "Mad Dog Tannen")
+		            		{
+		            			return "You see Mad Dog Tannen. He stands up, looks you in the eye and says,"
+		            					+ " \"Let's settle this like men.\" \n";
+		            		}
+		            		else
+		            		{
+		            			return "There is a "+currentRoom.getMonster().getName()+" and they want to duel! \n";
+		            		}
 		            	} 
 		            	else {
 		            	return currentRoom.getLongDescription()+"\n";
