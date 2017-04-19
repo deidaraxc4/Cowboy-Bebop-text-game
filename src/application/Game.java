@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Game 
 {
+    private Parser parser;
+    private ParserWithFileInput parserWithFileInput;
     private Room currentRoom;
     public static boolean finished = false;
     private Player player;
@@ -15,7 +17,9 @@ public class Game
      * Create the game and initialise its internal map.
      */
     public Game() 
-    {   player = new Player("Dirty Dan",10);
+    {
+        //createRooms();
+        player = new Player("Dirty Dan",10);
         weapons = new ArrayList<Weapon>();
         monsters = new ArrayList<Monster>();
         createAllWeapons();
@@ -34,39 +38,42 @@ public class Game
         darkerChamber, biscuitsNBread, whiskeyBent, youreFuqd;
         
         // create the rooms
-        outside = new Room("outside the main entrance of Waverly Hills",null,null);
-        saddleSt = new Room("on Saddle St.",null,null);
-        rodeoDr = new Room("on Rodeo Dr.",null,null);
-        lonestarRd = new Room("on Lonestar Rd.",null,null);
-        whiskeyBend = new Room("on Whiskey Bend",null,null);
-        bathHouse = new Room("in the bath house",null,null);
-        generalStore = new Room("in the general store",null,null);
-        behindTheGeneralStore = new Room("behind the general store",null,null);
-        countyJail = new Room("in the county jail",weapons.get(0),null);
-        saloon = new Room("in the saloon",null,null);
-        townSquare = new Room("in the town square",weapons.get(1),monsters.get(0));
-        stable = new Room("in the stable",null,null);
-        secretArea = new Room("- WOW there's a helicopter", weapons.get(3), null);
+        outside = new Room("outside the main entrance of Waverly Hills",null,null,"You see a large sign that reads \"Welcome to Waverly Hills.\" Upon further inspection, you notice that there is something interesting to the south. \n");
+        saddleSt = new Room("on Saddle St.",null,null,"To your east is a building marked \"General Store.\" To the west is what appears to be a bath house. Ahead is more road. \n");
+        rodeoDr = new Room("on Rodeo Dr.",null,null,"To your east is a saloon, and to your west is the county jail.\n");
+        lonestarRd = new Room("on Lonestar Rd.",null,null,"The road curves to the right, east. You came from the south and can continue to the east.\n");
+        whiskeyBend = new Room("on Whiskey Bend",null,null,"To the south (on your right) is the saloon, and to the east is the town square. \n");
+        bathHouse = new Room("in the bath house",null,null,"You see a few bath tubs, but nothing of any interest. \n");
+        generalStore = new Room("in the general store",null,null,"You see lots of wares, but nothing of much interest. You see that the back door is open, but you've heard it can be dangerous to go out the back of the general store. \n");
+        behindTheGeneralStore = new Room("behind the general store",null,null,"Well, it's a wonder you can read this! You should be dead! \n");
+        countyJail = new Room("in the county jail",weapons.get(0),null,"This is your old stomping ground. There are two cells, and one of them contains a criminal. He says, \"What are you lookin' at?\" The deputy on watch yells at the criminal to have some respect for the old sheriff of Waverly Hills.\n");
+        saloon = new Room("in the saloon",null,null,"The saloon is filled with all sorts of nefarious characters. It was once said that you would never find a more wretched hive of scum and villainy. Leaning over the upstairs balcony are several lovely ladies, and a player piano is playing a catchy tune.\n");
+        townSquare = new Room("in the town square",weapons.get(1),monsters.get(0),"You see a dead goon, and bystanders are thanking you for saving them from the villain.\n");
+        stable = new Room("in the stable",null,null,"You see several horses, and your horse nays happily. To the north is the exit you'll take when you ride to Mad Dog Tannen's hideout.\n");
+        secretArea = new Room("behind the entrance", weapons.get(3), null,"You see an Apache Attack Helicopter, and you wonder how this can possibly exist in the old wild west.\n");
 
         
         //hide out rooms
         
-        outsideHideOut = new Room("outside Mad Dog Tannen's Hideout after a long ride",null,null);
-        emptyRoom = new Room("in an empty room",null,null);
-        darkChamber = new Room("in the dark chamber with a Goon!",null, monsters.get(3));
-        blackChamber = new Room("in the black chamber with a Goon!",null, monsters.get(4));
-        bada$$Room = new Room("in the bada$$ room and there are Dual-Wield 12-inch Revolvers",weapons.get(2),null);
-        breakRoom = new Room("in the break room",null, null);
-        jitteryJims = new Room("in the café with some delicious ole coffee to sober you up!", null, null);
-        darkerChamber = new Room("in the darker chamber with a high Goon!", null, monsters.get(1));
-        biscuitsNBread = new Room("in the delicious diner grab some gravy!", null, null);
-        whiskeyBent = new Room("in the bar take a break come grab some whiskey and dance!", null, null); 
-        youreFuqd = new Room("in a room with the Top Goon!", null, monsters.get(2));
+        outsideHideOut = new Room("outside Mad Dog Tannen's Hideout after a long ride",null,null,"You see a large wooden door, and you look behind you, to the north, remembering the path you took from the Waverly Hills stable. Inside, your enemy awaits. \n");
+        emptyRoom = new Room("in an empty room",null,null, "There's nothing of interest in this room, but you notice some heavy breathing behind the doors to the east and west.\n");
+        darkChamber = new Room("in the dark chamber with a Goon!",null, monsters.get(3),"You see a dead goon, and you spit on him.\n");
+        blackChamber = new Room("in the black chamber with a Goon!",null, monsters.get(4),"You see a dead goon, and you spit on him.\n");
+        bada$$Room = new Room("in an otherwise empty room, but there are Dual-Wield 12-inch Revolvers on the ground",weapons.get(2),null,"While the room itself it very plain, you've found a set of 12-inch revolvers meant to be dual-wielded, which is mighty fine.\n");
+        breakRoom = new Room("in the break room",null, null,"There's not much going on here. \n");
+        jitteryJims = new Room("in the cafe with some delicious ole coffee to sober you up!", null, null,"That coffee was good, but there's nothing else of interest in this room.\n");
+        darkerChamber = new Room("in the darker chamber with a high Goon!", null, monsters.get(1),"You see a dead goon. You spit on him.\n");
+        biscuitsNBread = new Room("in the diner", null, null, "You see lots of unclean, used plates, and you think about how good that Hot Pocket was.\n");
+        whiskeyBent = new Room("in the bar", null, null,"You see lots of alcohol, but you shouldn't take another drink. You've had enough.\n"); 
+        youreFuqd = new Room("in a room with the Top Goon!", null, monsters.get(2),"This is Mad Dog Tannen's room. Holy cow!\n");
 
 
         // initialise room exits
         outside.setExit("north", saddleSt);
         outside.setExit("south", secretArea);
+        
+        secretArea.setExit("north", outside);
+        secretArea.setExit("south", outsideHideOut);
        
         saddleSt.setExit("west", bathHouse);
         saddleSt.setExit("north", rodeoDr);
@@ -153,8 +160,8 @@ public class Game
 
     public void createAllWeapons()
     {
-        Weapon sixInchRevolver = new Weapon("6-inch Revolver",0,3);
-        Weapon twelveInchRevolver = new Weapon("12-inch Revolver",1,6);
+        Weapon sixInchRevolver = new Weapon("6-inch Revolver",0,6);
+        Weapon twelveInchRevolver = new Weapon("12-inch Revolver",0,8);
         Weapon DualWield = new Weapon("Dual Wield 12-inch Revolver",6,12);
         Weapon Helicopter = new Weapon("Apache Attack Helicopter (How did this thing get to the wild west?)",1000,1000);
         weapons.add(sixInchRevolver);
@@ -183,11 +190,12 @@ public class Game
      */
     public String printWelcome()
     {
-        return "Welcome to Cowboy Bebop text adventure game. "
-				+ "You are an ex-sheriff who has come out of retirement due to new trouble brewing up in town."
-				+ " You must find your way through this puzzle game and collect various items and perform certain"
-				+ " tasks before taking on the Mafia gang who has taken over.\n"
-				+" \n";
+        return "Welcome to the Wild West! You are Dirty Dan, a retired sheriff. Unfortunately, you've gotten word"
+        		+ " that your old arch rival, Mad Dog Tannen, has escaped prison and is holed up in a hideout nearby."
+        		+ " You need to take him out, but before you ride to his hideout, you'll need to get a weapon, a rope,"
+        		+ " and three drinks (for courage). Once you have those, head to the stable on the other side"
+        		+ " of town, where your horse is waiting. \n"
+        		+ "Type 'help' if you need help. \n";
     }
     
     public String getRoomDesc() {
@@ -208,6 +216,7 @@ public class Game
     public String processCommand(Command command) 
     {
         if(command.isUnknown()) {
+            //System.out.println("I don't know what you mean...");
             return "I don't know what you mean... \n";
         }
 
@@ -225,8 +234,7 @@ public class Game
     				//end game
     				return "You have died!\n";
     			} else if(currentRoom.getMonster().checkDeath()) {
-    				return "You dealt "+x+" damage and got hit for "+y+"\n"
-    						+"You have killed the bad guy!\n";
+    				return "You have killed the bad guy!\n";
     			} else {
     				return "You dealt "+x+" damage and got hit for "+y+"\n";
     			}
@@ -247,19 +255,17 @@ public class Game
         	
     	} else {
     		if (commandWord.equals("help")) {
-            	return "Your command words are: 'go','quit','fire','help',\n"
-            			+ "'inventory','look',pickup','health' \n";
+            	return "Your command words are: 'go','quit','fire','help','inventory','look',pickup','health' \n";
             }
             else if (commandWord.equals("go")) {
                 return goRoom(command);
             }
             else if (commandWord.equals("look")) {
-            	if(currentRoom.getShortDescription().equals("outside the main entrance of Waverly Hills")) {
-            		return "Upon closer inspection you notice an exit to the south \n";
-            	} else if(currentRoom.getWeapon()!=null) {
-            		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor\n";
+            	  if(currentRoom.getWeapon()!=null) {
+            		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor.\n"
+            		+ currentRoom.getLookText() + "\n";
             	} else {
-            		return currentRoom.getLongDescription()+"\n";
+            		return currentRoom.getLookText()+"\n";
             	}
             }
             else if(commandWord.equals("inventory")) {
@@ -316,7 +322,7 @@ public class Game
         	if(currentRoom.getShortDescription().equals("in the town square")) {
 	        	player.drink3 = true;
 	        	currentRoom = nextRoom;
-	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
+	        	return "Before leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
 	        			+ "then leave. " + currentRoom.getLongDescription()+"\n";
 	        	}
         	if(currentRoom.getShortDescription().equals("in the stable")){
@@ -330,12 +336,23 @@ public class Game
 	        		}
 	        	}
         	}
-        	if(currentRoom.getShortDescription().equals("in a room with the Top Goon!")){
+        	if(nextRoom.getShortDescription().equals("in the diner")){
+        		currentRoom = nextRoom;
+        		player.health = 10;
+        		return "Upon entering the room, you find a fresh Hot Pocket. You eat it, and your health is restored.\n"
+        				+ "Exits: east south north west \n";
+        	}
+        	if(nextRoom.getShortDescription().equals("in a room with the Top Goon!")){
         		if(player.coffee == false)
         		{
         			return "While you needed some liquid courage to ride to the hideout, you know you'll"
         					+ " need to sober up before facing Mad Dog Tannen. Find some coffee. \n"
         					+ currentRoom.getLongDescription()+"\n";
+        		}
+        		else{
+        			currentRoom = nextRoom;
+        			return "You see Mad Dog Tannen. He stands up, looks you in the eye and says,"
+					+ " \"Let's settle this like men.\" \n";
         		}
         		
         	}
@@ -361,7 +378,7 @@ public class Game
 			            if(currentRoom.getShortDescription().equals("in the bath house")){
 			            	player.drink2 = true;
 			            	return "You are in the bath house. Paul, the owner, mentions that you smell fine"
-			            			+ "by wild west standards and that you don't need a bath. \"What you need,\" "
+			            			+ " by wild west standards and that you don't need a bath. \"What you need,\" "
 			            			+ "he says, \"is a drink!\" He then offers you a drink of whiskey, and you accept. \n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the cafe with some delicious ole coffee to sober you up!")){
@@ -369,7 +386,16 @@ public class Game
 			            	return "You are in the cafe. You notice a coffee pot with the logo \"Jittery Jim's\" on it. Coffee"
 			            			+ " is just what you need to sober up for the fight, so you drink a cup. \n";
 			            }
+			            if(currentRoom.getShortDescription().equals("behind the entrance")){
+			            	player.coffee = true;
+			            	return "- WOW there's a helicopter. You should probably pick it up. "
+			            			+ "Congrats on finding this game's secret! Once you've picked it up, you "
+			            			+ "can exit to the south to immediately head to Mad Dog Tannen's hideout, or you can"
+			            			+ "head north into town. \n"
+			            			+ "Exits: north south \n";
 			            }
+			            
+			        }
 			            if(currentRoom.hasMonster() && currentRoom.getMonster().checkDeath() == false) {
 		            		if(currentRoom.getMonster().getName() == "Mad Dog Tannen")
 		            		{

@@ -10,18 +10,20 @@ public class Room
     private HashMap<String, Room> exits;        // stores exits of this room.
     private Monster monster;
     private Weapon weapon;
+    private String lookText;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, Weapon weapon, Monster monster)//add monster and weapon
+    public Room(String description, Weapon weapon, Monster monster, String lookText)//add monster and weapon
     {
         this.description = description;
         exits = new HashMap<String, Room>();
         this.monster = monster;
         this.weapon = weapon;
+        this.lookText = lookText;
     }
 
     /**
@@ -38,6 +40,10 @@ public class Room
      * @return The short description of the room
      * (the one that was defined in the constructor).
      */
+    public String getLookText()
+    {
+    	return lookText + getExitString();
+    }
     public String getShortDescription()
     {
         return description;
