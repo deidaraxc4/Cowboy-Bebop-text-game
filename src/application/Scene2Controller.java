@@ -30,6 +30,7 @@ public class Scene2Controller implements Initializable {
 	Parser parser;
 	Game x;
 	Music music;
+	Music win;
 	
 	public Scene2Controller() {
 		instance = this;
@@ -80,6 +81,10 @@ public class Scene2Controller implements Initializable {
 			if(results.equals("You have been attacked by a bear and have died. \n ")) {
 				cmdArea.setDisable(true);
 			}
+			if(Main.getInstance().x.checkWin()) {
+				cmdArea.setDisable(true);
+				win.play();
+			}
 			cmdArea.setText("");
 		}
 	}
@@ -93,6 +98,8 @@ public class Scene2Controller implements Initializable {
 		console.appendText(Main.x.getRoomDesc());
 		music = new Music(getClass().getResource("/application/sounds/maintheme2.mp3"));
 		music.play();
+		win = new Music(getClass().getResource("/application/sounds/victory.mp3"));
+		win.disableLoop();
 	}
 
 	

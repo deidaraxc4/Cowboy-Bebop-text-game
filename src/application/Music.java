@@ -26,6 +26,14 @@ public class Music {
 		});
 	}
 	
+	public void disableLoop() {
+		mp.setOnEndOfMedia(new Runnable() {
+			public void run() {
+				mp.stop();
+			}
+		});
+	}
+	
 	public void play() {
 		mp.play();
 		isPlaying = true;

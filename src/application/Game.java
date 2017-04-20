@@ -4,28 +4,25 @@ import java.util.ArrayList;
 
 public class Game 
 {
-    private Parser parser;
-    private ParserWithFileInput parserWithFileInput;
     private Room currentRoom;
     public static boolean finished = false;
     private Player player;
     private int x,y;
     private ArrayList<Weapon> weapons;
     private ArrayList<Monster> monsters;
+    private boolean win;
     
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
-    {
-        //createRooms();
-        player = new Player("Dirty Dan",10);
+    {   player = new Player("Dirty Dan",10);
         weapons = new ArrayList<Weapon>();
         monsters = new ArrayList<Monster>();
         createAllWeapons();
         createAllMonsters();
         createRooms();
-        
+        win = false;
     }
 
     /**
@@ -182,7 +179,6 @@ public class Game
         monsters.add(topGoon);
         monsters.add(lowGoon2);
         monsters.add(lowGoon3);
-        //name,health, minhit, maxhit 
     }
 
     /**
@@ -195,7 +191,8 @@ public class Game
         		+ " You need to take him out, but before you ride to his hideout, you'll need to get a weapon, a rope,"
         		+ " and three drinks (for courage). Once you have those, head to the stable on the other side"
         		+ " of town, where your horse is waiting. \n"
-        		+ "Type 'help' if you need help. \n";
+        		+ "Type 'help' if you need help. \n"
+        		+"\n";
     }
     
     public String getRoomDesc() {
@@ -207,6 +204,14 @@ public class Game
     		return currentRoom.getLongDescription();
     	}
     }
+    
+    public boolean checkWin() {
+    	if(win == true) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
 
     /**
      * Given a command, process (that is: execute) the command.
@@ -216,7 +221,6 @@ public class Game
     public String processCommand(Command command) 
     {
         if(command.isUnknown()) {
-            //System.out.println("I don't know what you mean...");
             return "I don't know what you mean... \n";
         }
 
@@ -234,7 +238,15 @@ public class Game
     				//end game
     				return "You have died!\n";
     			} else if(currentRoom.getMonster().checkDeath()) {
-    				return "You have killed the bad guy!\n";
+    				//check if this is the final fight
+    				if(currentRoom.getMonster().getName().equals("Mad Dog Tannen")) {
+    					win = true;
+    					return "You have dealt the final blow to Mad Dog Tannen and have restored \n"
+    							+ "peace to Waverly Hills once again. Congratulations you have won!";
+    				} else {
+    					return "You dealt "+x+" damage and got hit for "+y+"\n"
+        						+"You have killed the bad guy!\n";
+    				}
     			} else {
     				return "You dealt "+x+" damage and got hit for "+y+"\n";
     			}
@@ -255,17 +267,19 @@ public class Game
         	
     	} else {
     		if (commandWord.equals("help")) {
-            	return "Your command words are: 'go','quit','fire','help','inventory','look',pickup','health' \n";
+            	return "Your command words are: 'go','quit','fire','help',\n"
+            			+ "'inventory','look',pickup','health' \n";
             }
             else if (commandWord.equals("go")) {
                 return goRoom(command);
             }
             else if (commandWord.equals("look")) {
-            	  if(currentRoom.getWeapon()!=null) {
-            		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor.\n"
-            		+ currentRoom.getLookText() + "\n";
+            	if(currentRoom.getShortDescription().equals("outside the main entrance of Waverly Hills")) {
+            		return "Upon closer inspection you notice an exit to the south \n";
+            	} else if(currentRoom.getWeapon()!=null) {
+            		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor\n";
             	} else {
-            		return currentRoom.getLookText()+"\n";
+            		return currentRoom.getLongDescription()+"\n";
             	}
             }
             else if(commandWord.equals("inventory")) {
@@ -322,7 +336,7 @@ public class Game
         	if(currentRoom.getShortDescription().equals("in the town square")) {
 	        	player.drink3 = true;
 	        	currentRoom = nextRoom;
-	        	return "Before leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
+	        	return "Before you leaving, you notice a flask has fallen from the goon. You grab it, take a swig, \n"
 	        			+ "then leave. " + currentRoom.getLongDescription()+"\n";
 	        	}
         	if(currentRoom.getShortDescription().equals("in the stable")){
@@ -342,7 +356,7 @@ public class Game
         		return "Upon entering the room, you find a fresh Hot Pocket. You eat it, and your health is restored.\n"
         				+ "Exits: east south north west \n";
         	}
-        	if(nextRoom.getShortDescription().equals("in a room with the Top Goon!")){
+        	if(currentRoom.getShortDescription().equals("in a room with the Top Goon!")){
         		if(player.coffee == false)
         		{
         			return "While you needed some liquid courage to ride to the hideout, you know you'll"
@@ -378,7 +392,7 @@ public class Game
 			            if(currentRoom.getShortDescription().equals("in the bath house")){
 			            	player.drink2 = true;
 			            	return "You are in the bath house. Paul, the owner, mentions that you smell fine"
-			            			+ " by wild west standards and that you don't need a bath. \"What you need,\" "
+			            			+ "by wild west standards and that you don't need a bath. \"What you need,\" "
 			            			+ "he says, \"is a drink!\" He then offers you a drink of whiskey, and you accept. \n";
 			            }
 			            if(currentRoom.getShortDescription().equals("in the cafe with some delicious ole coffee to sober you up!")){
@@ -394,7 +408,6 @@ public class Game
 			            			+ "head north into town. \n"
 			            			+ "Exits: north south \n";
 			            }
-			            
 			        }
 			            if(currentRoom.hasMonster() && currentRoom.getMonster().checkDeath() == false) {
 		            		if(currentRoom.getMonster().getName() == "Mad Dog Tannen")
