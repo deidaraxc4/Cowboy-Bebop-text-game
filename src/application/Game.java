@@ -1,6 +1,8 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
 
 public class Game 
 {
@@ -24,7 +26,27 @@ public class Game
         createRooms();
         win = false;
     }
-
+    
+    public ArrayList<String> autoPlayList()
+    {
+    	try{
+    		File source = new File("/src/application/CommandFile/PlaythroughCommands.txt");
+    		Scanner reader = new Scanner(source);
+    		ArrayList<String> autoPlayCommands = new ArrayList<String>();
+    		while(reader.hasNextLine())
+    		{
+    			autoPlayCommands.add(reader.nextLine());
+    		}
+    		return autoPlayCommands;
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e);
+    	}
+    	return null;
+    	
+    }
+    
     /**
      * Create all the rooms and link their exits together.
      */

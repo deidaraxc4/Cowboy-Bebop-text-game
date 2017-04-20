@@ -1,0 +1,40 @@
+This version of the game plays itself. In order to avoid the automatic game character dying (damage is psuedo-random in this game), the player gets an Apache Attack Helicopter right at the beginning, which does 1000 damage. This item is hidden in the regular version of the game, so the average player will have to pickup the weapons they find along the way. They use the "pickup" command word to do this.
+go south
+pickup
+go north
+go north
+look
+go east
+go west
+go west
+look
+go east
+go north
+go east
+look
+go west
+go west
+look
+go east
+go north
+go east
+go east
+fire
+go north
+go north
+go south
+go east
+fire
+look
+go west
+go west
+fire
+go south
+look
+go east
+go east
+go south
+go west
+go south
+fire
+
