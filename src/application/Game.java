@@ -402,9 +402,9 @@ public class Game
 			            }
 			            if(currentRoom.getShortDescription().equals("behind the entrance")){
 			            	player.coffee = true;
-			            	return "- WOW there's a helicopter. You should probably pick it up. "
+			            	return "WOW there's a helicopter. You should probably pick it up. "
 			            			+ "Congrats on finding this game's secret! Once you've picked it up, you "
-			            			+ "can exit to the south to immediately head to Mad Dog Tannen's hideout, or you can"
+			            			+ "can exit to the south to immediately head to Mad Dog Tannen's hideout, or you can "
 			            			+ "head north into town. \n"
 			            			+ "Exits: north south \n";
 			            }
