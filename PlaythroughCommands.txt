@@ -1,0 +1,39 @@
+go south
+pickup
+go north
+go north
+look
+go east
+go west
+go west
+look
+go east
+go north
+go east
+look
+go west
+go west
+look
+go east
+go north
+go east
+go east
+fire
+go north
+go north
+go south
+go east
+fire
+look
+go west
+go west
+fire
+go south
+look
+go east
+go east
+go south
+go west
+go south
+fire
+
