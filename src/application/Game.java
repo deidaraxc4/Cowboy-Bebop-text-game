@@ -30,7 +30,7 @@ public class Game
     public ArrayList<String> autoPlayList()
     {
     	try{
-    		File source = new File("/src/application/CommandFile/PlaythroughCommands.txt");
+    		File source = new File("src/application/CommandFile/PlaythroughCommands.txt");
     		Scanner reader = new Scanner(source);
     		ArrayList<String> autoPlayCommands = new ArrayList<String>();
     		while(reader.hasNextLine())
