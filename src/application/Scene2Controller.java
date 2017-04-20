@@ -83,6 +83,7 @@ public class Scene2Controller implements Initializable {
 			}
 			if(Main.getInstance().x.checkWin()) {
 				cmdArea.setDisable(true);
+				music.stop();
 				win.play();
 			}
 			cmdArea.setText("");
