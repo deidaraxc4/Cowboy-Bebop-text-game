@@ -1,8 +1,8 @@
 package application;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 
 public class Game 
 {
@@ -13,6 +13,7 @@ public class Game
     private ArrayList<Weapon> weapons;
     private ArrayList<Monster> monsters;
     private boolean win;
+    private ArrayList<String> autoPlayCommands;
     
     /**
      * Create the game and initialise its internal map.
@@ -25,28 +26,9 @@ public class Game
         createAllMonsters();
         createRooms();
         win = false;
+        setAutoPlayList();
     }
-    
-    public ArrayList<String> autoPlayList()
-    {
-    	try{
-    		File source = new File("src/application/CommandFile/PlaythroughCommands.txt");
-    		Scanner reader = new Scanner(source);
-    		ArrayList<String> autoPlayCommands = new ArrayList<String>();
-    		while(reader.hasNextLine())
-    		{
-    			autoPlayCommands.add(reader.nextLine());
-    		}
-    		return autoPlayCommands;
-    	}
-    	catch(Exception e)
-    	{
-    		System.out.println(e);
-    	}
-    	return null;
-    	
-    }
-    
+
     /**
      * Create all the rooms and link their exits together.
      */
@@ -81,7 +63,7 @@ public class Game
         bada$$Room = new Room("in an otherwise empty room, but there are Dual-Wield 12-inch Revolvers on the ground",weapons.get(2),null,"While the room itself it very plain, you've found a set of 12-inch revolvers meant to be dual-wielded, which is mighty fine.\n");
         breakRoom = new Room("in the break room",null, null,"There's not much going on here. \n");
         jitteryJims = new Room("in the cafe with some delicious ole coffee to sober you up!", null, null,"That coffee was good, but there's nothing else of interest in this room.\n");
-        darkerChamber = new Room("in a dark chamber with a dead goon", null, monsters.get(1),"You see a dead goon. You spit on him.\n");
+        darkerChamber = new Room("in the dark chamber with a high Goon!", null, monsters.get(1),"You see a dead goon. You spit on him.\n");
         biscuitsNBread = new Room("in the diner", null, null, "You see lots of unclean, used plates, and you think about how good that Hot Pocket was.\n");
         whiskeyBent = new Room("in the bar", null, null,"You see lots of alcohol, but you shouldn't take another drink. You've had enough.\n"); 
         youreFuqd = new Room("in a room with the Top Goon!", null, monsters.get(2),"This is Mad Dog Tannen's room. Holy cow!\n");
@@ -179,8 +161,8 @@ public class Game
 
     public void createAllWeapons()
     {
-        Weapon sixInchRevolver = new Weapon("6-inch Revolver",0,6);
-        Weapon twelveInchRevolver = new Weapon("12-inch Revolver",0,8);
+        Weapon sixInchRevolver = new Weapon("6-inch Revolver",0,3);
+        Weapon twelveInchRevolver = new Weapon("12-inch Revolver",0,6);
         Weapon DualWield = new Weapon("Dual Wield 12-inch Revolver",6,12);
         Weapon Helicopter = new Weapon("Apache Attack Helicopter (How did this thing get to the wild west?)",1000,1000);
         weapons.add(sixInchRevolver);
@@ -201,6 +183,28 @@ public class Game
         monsters.add(topGoon);
         monsters.add(lowGoon2);
         monsters.add(lowGoon3);
+    }
+    
+    public void setAutoPlayList()
+    {
+    	try{
+    		File source = new File("src/application/walkthrough.txt");
+    		Scanner reader = new Scanner(source);
+    		autoPlayCommands = new ArrayList<String>();
+    		while(reader.hasNextLine())
+    		{
+    			autoPlayCommands.add(reader.nextLine());
+    		}
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e);
+    	}
+    	
+    }
+    
+    public ArrayList<String> getList() {
+    	return autoPlayCommands;
     }
 
     /**
@@ -296,12 +300,13 @@ public class Game
                 return goRoom(command);
             }
             else if (commandWord.equals("look")) {
-          	  if(currentRoom.getWeapon()!=null) {
-          		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor.\n"
-          		+ currentRoom.getLookText() + "\n";
-          	  } else {
-          		return currentRoom.getLookText()+"\n";
-          	  }
+            	if(currentRoom.getShortDescription().equals("outside the main entrance of Waverly Hills")) {
+            		return "Upon closer inspection you notice an exit to the south \n";
+            	} else if(currentRoom.getWeapon()!=null) {
+            		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor\n";
+            	} else {
+            		return currentRoom.getLookText()+"\n";
+            	}
             }
             else if(commandWord.equals("inventory")) {
             	if(player.getWeapon()==null) {
@@ -374,7 +379,7 @@ public class Game
         	if(nextRoom.getShortDescription().equals("in the diner")){
         		currentRoom = nextRoom;
         		player.health = 20;
-        		return "Upon entering the room, you find a fresh Hot Pocket. You eat it, and your health is restored and doubled!\n"
+        		return "Upon entering the room, you find a fresh Hot Pocket. You eat it, and your health is doubled!\n"
         				+ "Exits: east south north west \n";
         	}
         	if(nextRoom.getShortDescription().equals("in a room with the Top Goon!")){
@@ -423,9 +428,9 @@ public class Game
 			            }
 			            if(currentRoom.getShortDescription().equals("behind the entrance")){
 			            	player.coffee = true;
-			            	return "- WOW there's a helicopter. You should probably pick it up. "
+			            	return "WOW there's a helicopter. You should probably pick it up. "
 			            			+ "Congrats on finding this game's secret! Once you've picked it up, you "
-			            			+ "can exit to the south to immediately head to Mad Dog Tannen's hideout, or you can"
+			            			+ "can exit to the south to immediately head to Mad Dog Tannen's hideout, or you can "
 			            			+ "head north into town. \n"
 			            			+ "Exits: north south \n";
 			            }
