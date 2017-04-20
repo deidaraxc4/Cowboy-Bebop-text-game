@@ -59,7 +59,7 @@ public class Game
         bada$$Room = new Room("in an otherwise empty room, but there are Dual-Wield 12-inch Revolvers on the ground",weapons.get(2),null,"While the room itself it very plain, you've found a set of 12-inch revolvers meant to be dual-wielded, which is mighty fine.\n");
         breakRoom = new Room("in the break room",null, null,"There's not much going on here. \n");
         jitteryJims = new Room("in the cafe with some delicious ole coffee to sober you up!", null, null,"That coffee was good, but there's nothing else of interest in this room.\n");
-        darkerChamber = new Room("in the darker chamber with a high Goon!", null, monsters.get(1),"You see a dead goon. You spit on him.\n");
+        darkerChamber = new Room("in a dark chamber with a dead goon", null, monsters.get(1),"You see a dead goon. You spit on him.\n");
         biscuitsNBread = new Room("in the diner", null, null, "You see lots of unclean, used plates, and you think about how good that Hot Pocket was.\n");
         whiskeyBent = new Room("in the bar", null, null,"You see lots of alcohol, but you shouldn't take another drink. You've had enough.\n"); 
         youreFuqd = new Room("in a room with the Top Goon!", null, monsters.get(2),"This is Mad Dog Tannen's room. Holy cow!\n");
@@ -242,7 +242,7 @@ public class Game
     				if(currentRoom.getMonster().getName().equals("Mad Dog Tannen")) {
     					win = true;
     					return "You have dealt the final blow to Mad Dog Tannen and have restored \n"
-    							+ "peace to Waverly Hills once again. Congratulations you have won!";
+    							+ "peace to Waverly Hills once again. Congratulations, you have won!";
     				} else {
     					return "You dealt "+x+" damage and got hit for "+y+"\n"
         						+"You have killed the bad guy!\n";
@@ -274,13 +274,12 @@ public class Game
                 return goRoom(command);
             }
             else if (commandWord.equals("look")) {
-            	if(currentRoom.getShortDescription().equals("outside the main entrance of Waverly Hills")) {
-            		return "Upon closer inspection you notice an exit to the south \n";
-            	} else if(currentRoom.getWeapon()!=null) {
-            		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor\n";
-            	} else {
-            		return currentRoom.getLongDescription()+"\n";
-            	}
+          	  if(currentRoom.getWeapon()!=null) {
+          		return "You see a "+currentRoom.getWeapon().getDesc()+ " on the floor.\n"
+          		+ currentRoom.getLookText() + "\n";
+          	  } else {
+          		return currentRoom.getLookText()+"\n";
+          	  }
             }
             else if(commandWord.equals("inventory")) {
             	if(player.getWeapon()==null) {
@@ -352,11 +351,11 @@ public class Game
         	}
         	if(nextRoom.getShortDescription().equals("in the diner")){
         		currentRoom = nextRoom;
-        		player.health = 10;
-        		return "Upon entering the room, you find a fresh Hot Pocket. You eat it, and your health is restored.\n"
+        		player.health = 20;
+        		return "Upon entering the room, you find a fresh Hot Pocket. You eat it, and your health is restored and doubled!\n"
         				+ "Exits: east south north west \n";
         	}
-        	if(currentRoom.getShortDescription().equals("in a room with the Top Goon!")){
+        	if(nextRoom.getShortDescription().equals("in a room with the Top Goon!")){
         		if(player.coffee == false)
         		{
         			return "While you needed some liquid courage to ride to the hideout, you know you'll"
@@ -402,9 +401,9 @@ public class Game
 			            }
 			            if(currentRoom.getShortDescription().equals("behind the entrance")){
 			            	player.coffee = true;
-			            	return "WOW there's a helicopter. You should probably pick it up. "
+			            	return "- WOW there's a helicopter. You should probably pick it up. "
 			            			+ "Congrats on finding this game's secret! Once you've picked it up, you "
-			            			+ "can exit to the south to immediately head to Mad Dog Tannen's hideout, or you can "
+			            			+ "can exit to the south to immediately head to Mad Dog Tannen's hideout, or you can"
 			            			+ "head north into town. \n"
 			            			+ "Exits: north south \n";
 			            }
