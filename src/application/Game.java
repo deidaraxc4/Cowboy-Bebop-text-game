@@ -1,10 +1,12 @@
 package application;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game 
+public class Game
 {
     private Room currentRoom;
     public static boolean finished = false;
@@ -14,11 +16,11 @@ public class Game
     private ArrayList<Monster> monsters;
     private boolean win;
     private ArrayList<String> autoPlayCommands;
-    
+
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() 
+    public Game()
     {   player = new Player("Dirty Dan",10);
         weapons = new ArrayList<Weapon>();
         monsters = new ArrayList<Monster>();
@@ -34,10 +36,10 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, saddleSt, rodeoDr, lonestarRd, whiskeyBend, bathHouse, generalStore, behindTheGeneralStore, countyJail, saloon, 
-        townSquare, emptyRoom, stable, secretArea, outsideHideOut, darkChamber, blackChamber,bada$$Room, breakRoom, jitteryJims, 
+        Room outside, saddleSt, rodeoDr, lonestarRd, whiskeyBend, bathHouse, generalStore, behindTheGeneralStore, countyJail, saloon,
+        townSquare, emptyRoom, stable, secretArea, outsideHideOut, darkChamber, blackChamber,bada$$Room, breakRoom, jitteryJims,
         darkerChamber, biscuitsNBread, whiskeyBent, youreFuqd;
-        
+
         // create the rooms
         outside = new Room("outside the main entrance of Waverly Hills",null,null,"You see a large sign that reads \"Welcome to Waverly Hills.\" Upon further inspection, you notice that there is something interesting to the south. \n");
         saddleSt = new Room("on Saddle St.",null,null,"To your east is a building marked \"General Store.\" To the west is what appears to be a bath house. Ahead is more road. \n");
@@ -53,9 +55,9 @@ public class Game
         stable = new Room("in the stable",null,null,"You see several horses, and your horse nays happily. To the north is the exit you'll take when you ride to Mad Dog Tannen's hideout.\n");
         secretArea = new Room("behind the entrance", weapons.get(3), null,"You see an Apache Attack Helicopter, and you wonder how this can possibly exist in the old wild west.\n");
 
-        
+
         //hide out rooms
-        
+
         outsideHideOut = new Room("outside Mad Dog Tannen's Hideout after a long ride",null,null,"You see a large wooden door, and you look behind you, to the north, remembering the path you took from the Waverly Hills stable. Inside, your enemy awaits. \n");
         emptyRoom = new Room("in an empty room",null,null, "There's nothing of interest in this room, but you notice some heavy breathing behind the doors to the east and west.\n");
         darkChamber = new Room("in the dark chamber with a Goon!",null, monsters.get(3),"You see a dead goon, and you spit on him.\n");
@@ -65,31 +67,31 @@ public class Game
         jitteryJims = new Room("in the cafe with some delicious ole coffee to sober you up!", null, null,"That coffee was good, but there's nothing else of interest in this room.\n");
         darkerChamber = new Room("in the dark chamber with a high Goon!", null, monsters.get(1),"You see a dead goon. You spit on him.\n");
         biscuitsNBread = new Room("in the diner", null, null, "You see lots of unclean, used plates, and you think about how good that Hot Pocket was.\n");
-        whiskeyBent = new Room("in the bar", null, null,"You see lots of alcohol, but you shouldn't take another drink. You've had enough.\n"); 
+        whiskeyBent = new Room("in the bar", null, null,"You see lots of alcohol, but you shouldn't take another drink. You've had enough.\n");
         youreFuqd = new Room("in a room with the Top Goon!", null, monsters.get(2),"This is Mad Dog Tannen's room. Holy cow!\n");
 
 
         // initialise room exits
         outside.setExit("north", saddleSt);
         outside.setExit("south", secretArea);
-        
+
         secretArea.setExit("north", outside);
         secretArea.setExit("south", outsideHideOut);
-       
+
         saddleSt.setExit("west", bathHouse);
         saddleSt.setExit("north", rodeoDr);
         saddleSt.setExit("east", generalStore);
         saddleSt.setExit("south", outside);
-        
+
         bathHouse.setExit("east", saddleSt);
-        
+
         rodeoDr.setExit("north", lonestarRd);
         rodeoDr.setExit("south", saddleSt);
         rodeoDr.setExit("east", saloon);
         rodeoDr.setExit("west", countyJail);
-        
+
         behindTheGeneralStore.setExit("west", generalStore);
-        
+
         generalStore.setExit("west", saddleSt);
         generalStore.setExit("east", behindTheGeneralStore);
 
@@ -108,51 +110,51 @@ public class Game
 
         townSquare.setExit("north", stable);
         townSquare.setExit("west", whiskeyBend);
-        
+
         stable.setExit("south", townSquare);
         stable.setExit("north", outsideHideOut);
-        
+
         outsideHideOut.setExit("south", emptyRoom);
-        
+
         emptyRoom.setExit("north",outsideHideOut);
         emptyRoom.setExit("west", darkChamber);
         emptyRoom.setExit("east", blackChamber);
         emptyRoom.setExit("south", breakRoom);
-        
+
         darkChamber.setExit("south", bada$$Room);
         darkChamber.setExit("east",emptyRoom);
-        
+
         blackChamber.setExit("west", emptyRoom);
         blackChamber.setExit("south", jitteryJims);
-        
+
         bada$$Room.setExit("north", darkChamber);
         bada$$Room.setExit("east", breakRoom);
         bada$$Room.setExit("south", darkerChamber);
-        
+
         breakRoom.setExit("north", emptyRoom);
         breakRoom.setExit("west", bada$$Room);
         breakRoom.setExit("east", jitteryJims);
         breakRoom.setExit("south", biscuitsNBread);
-        
+
         jitteryJims.setExit("north",blackChamber);
         jitteryJims.setExit("south",whiskeyBent);
         jitteryJims.setExit("west",breakRoom);
-        
+
         darkerChamber.setExit("north", bada$$Room);
         darkerChamber.setExit("east", biscuitsNBread);
-        
+
         biscuitsNBread.setExit("west", darkerChamber);
         biscuitsNBread.setExit("north", breakRoom);
         biscuitsNBread.setExit("east", whiskeyBent);
         biscuitsNBread.setExit("south", youreFuqd);
-        
+
         whiskeyBent.setExit("north",jitteryJims);
         whiskeyBent.setExit("west", biscuitsNBread);
-        
+
         youreFuqd.setExit("north",biscuitsNBread);
-        
-        
-       
+
+
+
 
 
 
@@ -184,12 +186,12 @@ public class Game
         monsters.add(lowGoon2);
         monsters.add(lowGoon3);
     }
-    
+
     public void setAutoPlayList()
     {
     	try{
-    		File source = new File("src/application/walkthrough.txt");
-    		Scanner reader = new Scanner(source);
+    		InputStream input = getClass().getResourceAsStream("/application/walkthrough.txt");
+    		Scanner reader = new Scanner(input);
     		autoPlayCommands = new ArrayList<String>();
     		while(reader.hasNextLine())
     		{
@@ -200,9 +202,9 @@ public class Game
     	{
     		System.out.println(e);
     	}
-    	
+
     }
-    
+
     public ArrayList<String> getList() {
     	return autoPlayCommands;
     }
@@ -220,7 +222,7 @@ public class Game
         		+ "Type 'help' if you need help. \n"
         		+"\n";
     }
-    
+
     public String getRoomDesc() {
     	if(currentRoom.getShortDescription().equals("outside the main entrance of Waverly Hills")){
     		return "You are outside the main entrance of your hometown, Waverly Hills. \n"
@@ -230,7 +232,7 @@ public class Game
     		return currentRoom.getLongDescription();
     	}
     }
-    
+
     public boolean checkWin() {
     	if(win == true) {
     		return true;
@@ -244,14 +246,14 @@ public class Game
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    public String processCommand(Command command) 
+    public String processCommand(Command command)
     {
         if(command.isUnknown()) {
             return "I don't know what you mean... \n";
         }
 
         String commandWord = command.getCommandWord();
-        
+
         if(currentRoom.hasMonster() == true && currentRoom.getMonster().checkDeath() == false) {
     		//cannot leave
         	if(commandWord.equals("fire") && player.hasWeapon()) {
@@ -276,7 +278,7 @@ public class Game
     			} else {
     				return "You dealt "+x+" damage and got hit for "+y+"\n";
     			}
-    			
+
     		} else if(commandWord.equals("fire") && !player.hasWeapon()) {
     			y = currentRoom.getMonster().attack();
     			player.takeDmg(y);
@@ -290,7 +292,7 @@ public class Game
     		} else if(!commandWord.equals("fire")) {
     			return "You cannot run away from battle \n";
     		}
-        	
+
     	} else {
     		if (commandWord.equals("help")) {
             	return "Your command words are: 'go','quit','fire','help',\n"
@@ -317,10 +319,10 @@ public class Game
             }
             else if(commandWord.equals("health")) {
     			return "Your current health is: "+player.getHealth()+"\n";
-    		} 
+    		}
             else if(commandWord.equals("fire")) {
     			return "You probably shouldn't randomly fire shots in public... \n";
-    		} 
+    		}
             else if (commandWord.equals("pickup")) {
             	if(currentRoom.hasWeapon() == true) {
             		player.assignWeapon(currentRoom.getWeapon());
@@ -332,18 +334,18 @@ public class Game
             else if (commandWord.equals("quit")) {
                 //wantToQuit = quit(command);
             	return "Goodbye!";
-            }		
+            }
     	}
         // else command not recognised.
         return null;
     }
 
-    /** 
+    /**
      * Try to in to one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
-     * @return 
+     * @return
      */
-    private String goRoom(Command command) 
+    private String goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
@@ -366,7 +368,7 @@ public class Game
 	        			+ "then leave. " + currentRoom.getLongDescription()+"\n";
 	        	}
         	if(currentRoom.getShortDescription().equals("in the stable")){
-	        	if(command.getSecondWord().equals("north"))	
+	        	if(command.getSecondWord().equals("north"))
 	        	{
         			if(player.rope == false || player.drink1 == false || player.drink2 == false || player.drink3 == false)
 	        		{
@@ -394,13 +396,13 @@ public class Game
         			return "You see Mad Dog Tannen. He stands up, looks you in the eye and says,"
 					+ " \"Let's settle this like men.\" \n";
         		}
-        		
+
         	}
 	        else{
 		        		currentRoom = nextRoom;
 			            if(currentRoom.getShortDescription().equals("behind the general store")) {
 			            	return "You have been attacked by a bear and have died. \n ";
-			            			
+
 			            	//player dies
 			            	//end game
 			            }
@@ -445,11 +447,11 @@ public class Game
 		            		{
 		            			return "There is a "+currentRoom.getMonster().getName()+" and they want to duel! \n";
 		            		}
-		            	} 
+		            	}
 		            	else {
 		            	return currentRoom.getLongDescription()+"\n";
 		            	}
         }
     }
-    
+
 }
