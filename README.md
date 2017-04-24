@@ -17,7 +17,8 @@ Welcome to Cowboy Bebop text adventure game. You are an ex-sheriff who has come 
 - Mad Dog Tannen: the top dog of the organization, can hit between 1-5
 
 #### Map
-http://imgur.com/a/LkgDK
+![Town map](http://i.imgur.com/B4gTeI8.png)
+![Hideout map](http://i.imgur.com/hDe6eWP.png)
 
 ### Easter Eggs
 There are also hidden easter eggs in the game so explore carefully and you will unlock bonus features.
