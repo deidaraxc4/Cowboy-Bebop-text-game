@@ -16,8 +16,7 @@ Welcome to Cowboy Bebop text adventure game. You are an ex-sheriff who has come 
 - Middle management goon: manages the goons, can hit between 1-3
 - Mad Dog Tannen: the top dog of the organization, can hit between 1-5
 
-
-![alt text](http://imgur.com/a/LkgDK "Logo Title Text 1")
+#### Map
 http://imgur.com/a/LkgDK
 
 ### Easter Eggs
