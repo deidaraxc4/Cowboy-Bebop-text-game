@@ -110,4 +110,9 @@ public class Room
     		return false;
     	}
     }
+    
+    public void removeWeapon()
+    {
+    	weapon = null;
+    }
 }

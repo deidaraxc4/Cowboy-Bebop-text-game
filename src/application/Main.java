@@ -65,7 +65,7 @@ public class Main extends Application {
 		alert2 = new Alert(AlertType.INFORMATION);
 		alert2.setTitle("Creators");
 		alert2.setHeaderText(null);
-		alert2.setContentText("Nick Tang, Colson Craig, Emily Ponson, Stefana Mason");
+		alert2.setContentText("Nick Tang, Colson Craig, Emily Ponson, Stefana Masic");
 	}
 	
 	public Dialog getDialog() {
